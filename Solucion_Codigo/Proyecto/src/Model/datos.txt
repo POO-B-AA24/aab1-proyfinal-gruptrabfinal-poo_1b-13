@@ -1,0 +1,3 @@
+Parque Infantil,1,Parque Infantil
+Pradera,2,Pradera
+Cabo Minacho,3,Cabo Minacho
