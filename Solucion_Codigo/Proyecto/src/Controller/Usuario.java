@@ -36,14 +36,10 @@ public class Usuario {
     @Override
     public String toString() {
         return "Usuario{" +
-                "Numero de la Parada =" + Npa + "\n" +
+                "Numero de la Parada=" + Npa + "\n" +
                 ", nombre='" + nombre + "\n" +
                 ", email='" + email + "\n" +
                 ", tipoUsuario='" + tipoUsuario + 
                 '}';
-    }
-
-    public void add(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

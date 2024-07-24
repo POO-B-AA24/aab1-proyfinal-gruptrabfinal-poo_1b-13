@@ -53,30 +53,69 @@ public class Gestion {
                 usuario.guardar(formatter);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error No se Guardaron los Datos " + e.getMessage());
+            System.out.println("Error: No se pudieron guardar los datos. " + e.getMessage());
         }
     }
 
     public void cargarDatos(String nombreArchivo) {
-        try (Scanner sc = new Scanner(new File(nombreArchivo))) {
+        File archivo = new File(nombreArchivo);
+        System.out.println("Intentando cargar datos desde: " + archivo.getAbsolutePath());
+
+        if (!archivo.exists()) {
+            System.out.println("Error: El archivo no existe en la ruta especificada.");
+            return;
+        }
+
+        try (Scanner sc = new Scanner(archivo)) {
+            Parada currentParada = null;
             while (sc.hasNextLine()) {
-                String linea = sc.nextLine();
+                String linea = sc.nextLine().trim();
+                if (linea.isEmpty()) {
+                    continue; // Salta líneas vacías
+                }
                 String[] data = linea.split(",");
-                switch (data.length) {
-                    case 3:
-                        Parada parada = new Parada(data[0], Integer.parseInt(data[1]), data[2]);
-                        paradas.add(parada);
-                        break;
-                    case 4:
-                        Usuario usuario = new Usuario(Integer.parseInt(data[0]), data[1], data[2], data[3]);
-                        usuarios.add(usuario);
-                        break;
-                    default:
-                        break;
+                if (data.length == 0) {
+                    continue; // Salta líneas vacías
+                }
+                try {
+                    switch (data.length) {
+                        case 3:
+                            // Formato para Parada
+                            currentParada = Parada.leer(new Scanner(linea));
+                            regParada(currentParada); // Cambiado a regParada para agregar a la lista
+                            break;
+                        case 4:
+                            // Formato para Usuario
+                            Usuario usuario = Usuario.leer(new Scanner(linea));
+                            regUsuario(usuario); // Cambiado a regUsuario para agregar a la lista
+                            break;
+                        case 2:
+                            // Formato para Ruta
+                            Ruta ruta = Ruta.leer(new Scanner(linea));
+                            regRuta(ruta); // Cambiado a regRuta para agregar a la lista
+                            break;
+                        case 5:
+                            // Formato para Horario, relacionado con una parada existente
+                            if (currentParada != null) {
+                                Horario horario = Horario.leer(new Scanner(linea));
+                                currentParada.setHorario(horario);
+                            } else {
+                                System.out.println("Error: No hay una parada actual para asignar el horario.");
+                            }
+                            break;
+                        default:
+                            System.out.println("Formato de línea desconocido: " + linea);
+                            break;
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Error en el formato de número en la línea: " + linea + ". " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error al procesar la línea: " + linea + ". " + e.getMessage());
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Error No se encuentran los Datos: " + e.getMessage());
+            System.out.println("Error: No se encontró el archivo.");
+            e.printStackTrace();
         }
     }
 

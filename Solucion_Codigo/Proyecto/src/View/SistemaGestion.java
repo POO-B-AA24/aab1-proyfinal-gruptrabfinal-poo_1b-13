@@ -1,14 +1,15 @@
 package View;
 import Controller.*;
+import Model.*;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Scanner;
 
 public class SistemaGestion {
     public static Gestion gestion = new Gestion();
-    public static final String Datos = "C:\\Users\\julio\\OneDrive\\Escritorio\\datos.txt";
+    public static final String datos = "src/Model/datos.txt";
     public static void main(String[] args) {
-        gestion.cargarDatos(Datos);
+        gestion.cargarDatos(datos);
         Scanner sc = new Scanner(System.in);
         boolean salir = false;
         while (!salir) {
@@ -56,7 +57,7 @@ public class SistemaGestion {
                     consultarUsuarios();
                     break;
                 case 8:
-                    gestion.guardarDatos(Datos);
+                    gestion.guardarDatos(datos);
                     salir = true;
                     break;
                 default:
@@ -98,7 +99,6 @@ public class SistemaGestion {
         }
         System.out.println("Guardado Correctamente.");
     }
-    
     public static void regRuta(Scanner sc) {
         int Npa;
         String nombre;
@@ -111,7 +111,6 @@ public class SistemaGestion {
         gestion.regRuta(ruta);
         System.out.println("Guardado Correctamente.");
     }
-
     public static void regUsuario(Scanner sc) {
         int Npa;
         String nombre,email,tipoUsuario;
@@ -128,7 +127,6 @@ public class SistemaGestion {
         gestion.regUsuario(usuario);
         System.out.println("Guardado Correctamente.");
     }
-
     public static void consultarParadas() {
         List<Parada> paradas = gestion.consultaParada();
         if (paradas.isEmpty()) {
@@ -137,7 +135,6 @@ public class SistemaGestion {
             paradas.forEach(System.out::println);
         }
     }
-
     public static void consultarRutas() {
         List<Ruta> rutas = gestion.consultaRuta();
         if (rutas.isEmpty()) {
@@ -146,7 +143,6 @@ public class SistemaGestion {
             rutas.forEach(System.out::println);
         }
     }
-
     public static void consultarUsuarios() {
         List<Usuario> usuarios = gestion.consultaUsuarios();
         if (usuarios.isEmpty()) {
