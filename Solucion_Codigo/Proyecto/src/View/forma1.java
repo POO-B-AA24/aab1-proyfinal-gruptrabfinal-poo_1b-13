@@ -124,7 +124,7 @@ public class forma1 extends javax.swing.JFrame {
         ResultSet resul=null;
         
         try {
-           PreparedStatement st = connect.prepareStatement("SELECT linea,horario,ubicacion,ruta FROM GestionParadas");
+           PreparedStatement st = connect.prepareStatement("SELECT Linea,horario,ubicacion,ruta FROM GestionParadas");
             resul=st.executeQuery();
             
             while(resul.next()){
