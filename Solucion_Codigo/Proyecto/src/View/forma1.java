@@ -3,7 +3,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 
@@ -79,19 +78,18 @@ public class forma1 extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(jButton1)
-                        .addGap(61, 61, 61)
-                        .addComponent(jButton2)
-                        .addGap(68, 68, 68)
-                        .addComponent(jButton3)
-                        .addGap(79, 79, 79)
-                        .addComponent(jButton4)))
-                .addContainerGap(353, Short.MAX_VALUE))
+                .addGap(129, 129, 129)
+                .addComponent(jButton1)
+                .addGap(52, 52, 52)
+                .addComponent(jButton2)
+                .addGap(46, 46, 46)
+                .addComponent(jButton3)
+                .addGap(67, 67, 67)
+                .addComponent(jButton4)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 845, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,7 +101,7 @@ public class forma1 extends javax.swing.JFrame {
                     .addComponent(jButton2)
                     .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -158,7 +156,7 @@ public class forma1 extends javax.swing.JFrame {
         st.executeUpdate();
         JOptionPane.showMessageDialog(null, "Datos insertados correctamente.");
         
-        // Recargar la tabla para mostrar los nuevos datos (opcional)
+        // Recargar la tabla para mostrar los nuevos datos 
         jButton2ActionPerformed(evt);
     } catch (SQLException x) {
         JOptionPane.showMessageDialog(null, "Error al insertar datos: " + x.getMessage());
