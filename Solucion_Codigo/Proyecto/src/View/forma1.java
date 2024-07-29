@@ -29,10 +29,10 @@ public class forma1 extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,17 +43,10 @@ public class forma1 extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("seleccionar");
+        jButton2.setText("cargar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("insertar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
             }
         });
 
@@ -74,6 +67,13 @@ public class forma1 extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jButton3.setText("Insertar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,13 +83,13 @@ public class forma1 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 717, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(109, 109, 109)
                         .addComponent(jButton1)
-                        .addGap(99, 99, 99)
+                        .addGap(61, 61, 61)
                         .addComponent(jButton2)
-                        .addGap(104, 104, 104)
+                        .addGap(68, 68, 68)
                         .addComponent(jButton3)
-                        .addGap(97, 97, 97)
+                        .addGap(79, 79, 79)
                         .addComponent(jButton4)))
                 .addContainerGap(353, Short.MAX_VALUE))
         );
@@ -99,9 +99,9 @@ public class forma1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton3)
                     .addComponent(jButton4)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -137,17 +137,33 @@ public class forma1 extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try{
-            connect.close();;
-        }catch(Exception x){
-            JOptionPane.showMessageDialog(null, x.getMessage().toString());
+       if (connect != null) {
+        try {
+            connect.close();
+            connect = null;
+            JOptionPane.showMessageDialog(null, "Conexión cerrada correctamente.");
+        } catch (SQLException x) {
+            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + x.getMessage());
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "No hay conexión abierta.");
+    } 
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try {
+        // Preparar la sentencia SQL de inserción con valores específicos
+        PreparedStatement st = connect.prepareStatement("INSERT INTO GestionParadas (linea, horario, ubicacion, ruta) VALUES ('NuevaLinea', 'NuevoHorario', 'NuevaUbicacion', 'NuevaRuta')");   
+        st.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Datos insertados correctamente.");
+        
+        // Recargar la tabla para mostrar los nuevos datos (opcional)
+        jButton2ActionPerformed(evt);
+    } catch (SQLException x) {
+        JOptionPane.showMessageDialog(null, "Error al insertar datos: " + x.getMessage());
+    }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     
     public static void main(String args[]) {
